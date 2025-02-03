@@ -3,7 +3,7 @@ import User from "../models/user.model.js";
 
 export const protectRoute = async (req, res, next) => {
   try {
-    const token = req.cookie.jwt;
+    const token = req.cookies.jwt;
     if (!token) {
       return res
         .status(401)
@@ -23,7 +23,7 @@ export const protectRoute = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    console.log("Error in logout controller", error.message);
+    console.log("Error in auth middleware", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 };
