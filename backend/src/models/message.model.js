@@ -23,6 +23,6 @@ const messageSchema = new mongoose.Schema(
   }
 );
 
-const User = mongoose.model("Message", messageSchema);
+const Message = mongoose.model("Message", messageSchema);
 
 export default Message;

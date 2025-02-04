@@ -1,6 +1,6 @@
 import express from "express";
 import authRoutes from "./routes/auth.route.js";
-import messageRoutes from "./routes/auth.route.js";
+import messageRoutes from "./routes/message.route.js";
 
 import cors from "cors";
 import dotenv from "dotenv";
@@ -22,7 +22,7 @@ app.use(
 );
 
 app.use("/api/auth", authRoutes);
-app.use("/api/auth", messageRoutes);
+app.use("/api/messages", messageRoutes);
 
 app.listen(PORT, () => {
   console.log("server is running on port " + PORT);
