@@ -1,4 +1,5 @@
-import mongoose, { Types } from "mongoose";
+import mongoose from "mongoose";
+
 const userSchema = new mongoose.Schema(
   {
     email: {
@@ -20,9 +21,7 @@ const userSchema = new mongoose.Schema(
       default: "",
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
 const User = mongoose.model("User", userSchema);

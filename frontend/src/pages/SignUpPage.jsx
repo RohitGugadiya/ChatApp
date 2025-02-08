@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useAuthStore } from "../store/useAuthStore";
 import {
   Eye,
   EyeOff,
@@ -7,14 +9,12 @@ import {
   MessageSquare,
   User,
 } from "lucide-react";
-import React, { useState } from "react";
-import { use } from "react";
-import { useAuthStore } from "../store/useAuthStore";
 import { Link } from "react-router-dom";
+
 import AuthImagePattern from "../components/AuthImagePattern";
 import toast from "react-hot-toast";
 
-function SignUpPage() {
+const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
@@ -35,27 +35,30 @@ function SignUpPage() {
 
     return true;
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const success = validateForm();
+
     if (success === true) signup(formData);
   };
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
-      {/* Left*/}
       <div className="flex flex-col justify-center items-center p-6 sm:p-12">
         <div className="w-full max-w-md space-y-8">
           <div className="text-center mb-8">
             <div className="flex flex-col items-center gap-2 group">
-              <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <MessageSquare className=" size-6 text-primary" />
+              <div
+                className="size-12 rounded-xl bg-primary/10 flex items-center justify-center 
+              group-hover:bg-primary/20 transition-colors"
+              >
+                <MessageSquare className="size-6 text-primary" />
               </div>
               <h1 className="text-2xl font-bold mt-2">Create Account</h1>
               <p className="text-base-content/60">
-                {" "}
-                Get Statrtedbwith yourfree acc
+                Get started with your free account
               </p>
             </div>
           </div>
@@ -80,6 +83,7 @@ function SignUpPage() {
                 />
               </div>
             </div>
+
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-medium">Email</span>
@@ -130,6 +134,7 @@ function SignUpPage() {
                 </button>
               </div>
             </div>
+
             <button
               type="submit"
               className="btn btn-primary w-full"
@@ -156,13 +161,12 @@ function SignUpPage() {
           </div>
         </div>
       </div>
+
       <AuthImagePattern
         title="Join our community"
         subtitle="Connect with friends, share moments, and stay in touch with your loved ones."
       />
     </div>
   );
-  // return <div>SignUpPage</div>;
-}
-
+};
 export default SignUpPage;
