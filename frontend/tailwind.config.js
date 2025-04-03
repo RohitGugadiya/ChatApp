@@ -41,5 +41,6 @@ export default {
       "nord",
       "sunset",
     ],
+    "--default": "Fantacy",
   },
 };
