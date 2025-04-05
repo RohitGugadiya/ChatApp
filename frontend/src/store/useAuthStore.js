@@ -5,8 +5,8 @@ import { io } from "socket.io-client";
 
 const BASE_URL =
   import.meta.env.MODE === "development"
-    ? "http://localhost:5001"
-    : "http://buzztalk.site:5001"; //back
+    ? "http://buzztalk.site:5001"
+    : "http://localhost:5001"; //back
 
 export const useAuthStore = create((set, get) => ({
   authUser: null,
