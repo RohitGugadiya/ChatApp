@@ -12,6 +12,7 @@ import messageRoutes from "./src/routes/message.route.js";
 import { app, server } from "./src/lib/socket.js";
 
 dotenv.config();
+const cors = require("cors");
 
 const PORT = process.env.PORT || 5005;
 const __dirname = path.resolve();
