@@ -7,7 +7,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: ["https://buzztalk.site"], //["http://localhost:5173"],
+    origin: ["http://buzztalk.site"], //["http://localhost:5173"],
     credentials: true,
   },
 });
