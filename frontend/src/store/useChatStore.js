@@ -42,12 +42,13 @@ export const useChatStore = create((set, get) => ({
         `/messages/send/${selectedUser._id}`,
         messageData
       );
-      set({ messages: [...messages, res.data] });
+      set({
+        messages: [...(Array.isArray(messages) ? messages : []), res.data],
+      });
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Failed to send message");
     }
   },
-
   subscribeToMessages: () => {
     const { selectedUser } = get();
     if (!selectedUser) return;
