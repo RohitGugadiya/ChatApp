@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://www.buzztalk.site",
+    origin: "https://www.buzztalk.site",
     credentials: true,
   })
 );
