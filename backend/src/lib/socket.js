@@ -7,11 +7,10 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: ["https://buzztalk.site"], //["http://localhost:5173"]
+    origin: ["https://buzztalk.site", "https://www.buzztalk.site"],
     credentials: true,
   },
 });
-
 export function getReceiverSocketId(userId) {
   return userSocketMap[userId];
 }
