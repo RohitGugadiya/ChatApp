@@ -3,7 +3,7 @@ import { axiosInstance } from "../lib/axios.js";
 import toast from "react-hot-toast";
 import { io } from "socket.io-client";
 
-const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+const BASE_URL = "/";
 
 export const useAuthStore = create((set, get) => ({
   authUser: null,
@@ -18,7 +18,6 @@ export const useAuthStore = create((set, get) => ({
     try {
       const res = await axiosInstance.get("/auth/check");
 
-      // Only set authUser if response is valid
       if (res.data && res.data._id) {
         set({ authUser: res.data });
         get().connectSocket();
@@ -87,7 +86,7 @@ export const useAuthStore = create((set, get) => ({
         toast.success("Profile updated successfully");
       }
     } catch (error) {
-      console.log("error in update profile:", error);
+      console.log("Error updating profile:", error);
       toast.error(error.response?.data?.message || "Update failed");
     } finally {
       set({ isUpdatingProfile: false });
@@ -98,16 +97,24 @@ export const useAuthStore = create((set, get) => ({
     const { authUser, socket } = get();
     if (!authUser || socket?.connected) return;
 
+    // Always connect to same origin for HTTPS
     const newSocket = io(BASE_URL, {
       query: { userId: authUser._id },
     });
 
-    newSocket.connect();
-    set({ socket: newSocket });
+    newSocket.on("connect", () => {
+      console.log("Socket connected:", newSocket.id);
+    });
+
+    newSocket.on("disconnect", () => {
+      console.log("Socket disconnected");
+    });
 
     newSocket.on("getOnlineUsers", (userIds) => {
       set({ onlineUsers: Array.isArray(userIds) ? userIds : [] });
     });
+
+    set({ socket: newSocket });
   },
 
   disconnectSocket: () => {
