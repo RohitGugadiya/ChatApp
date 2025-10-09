@@ -1,7 +1,7 @@
+import cors from "cors";
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import cors from "cors";
 
 import path from "path";
 
@@ -18,9 +18,11 @@ const __dirname = path.resolve();
 
 app.use(express.json());
 app.use(cookieParser());
+const allowedOrigins = process.env.FRONTEND_URL.split(",");
+
 app.use(
   cors({
-    origin: ["https://buzztalk.site", "https://www.buzztalk.site"],
+    origin: allowedOrigins,
     credentials: true,
   })
 );

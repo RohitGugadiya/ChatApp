@@ -94,18 +94,21 @@ export const useAuthStore = create((set, get) => ({
   },
 
   connectSocket: () => {
-    const { authUser, socket } = get();
-    if (!authUser || socket?.connected) return;
+    const { authUser } = get();
+    if (!authUser || get().socket?.connected) return;
 
-    const newSocket = io(BASE_URL, {
+    const socket = io("https://buzztalk.site", {
       query: { userId: authUser._id },
+      withCredentials: true,
+      transports: ["websocket", "polling"],
     });
 
-    newSocket.connect();
-    set({ socket: newSocket });
+    socket.connect();
 
-    newSocket.on("getOnlineUsers", (userIds) => {
-      set({ onlineUsers: Array.isArray(userIds) ? userIds : [] });
+    set({ socket });
+
+    socket.on("getOnlineUsers", (userIds) => {
+      set({ onlineUsers: userIds });
     });
   },
 
